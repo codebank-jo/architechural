@@ -1,6 +1,8 @@
 - Getting Started
   - [Software Development Life Cycle (SDLC)](sdlc/SoftwareDevelopmentLifeCycle.md)
   - [ValueStreamMapping](sdlc/ValueStreamMapping.md)
+  - [TddVsBdd](sdlc/TddVsBdd.md)
+  - [Software Development Models](sdlc/Softwaredevelopmentmodels.md)
 - Features
   - [Sidebar Collapse](features/sidebar-collapse.md)
   - [Search](features/search.md)
