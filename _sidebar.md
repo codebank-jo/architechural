@@ -1,0 +1,9 @@
+- Getting Started
+  - [Software Development Life Cycle (SDLC)](sdlc/SoftwareDevelopmentLifeCycle.md)
+  - [ValueStreamMapping](sdlc/ValueStreamMapping.md)
+- Features
+  - [Sidebar Collapse](features/sidebar-collapse.md)
+  - [Search](features/search.md)
+- Advanced
+  - [Customization](advanced/customization.md)
+  - [Plugins](advanced/plugins.md)
