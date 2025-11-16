@@ -230,7 +230,75 @@ Service A <--> ESB <--> Service B <--> Service C
 
 ---
 
-## Quick comparison (one‑line)
+## Pipe‑and‑Filter
+
+**Definition**  
+Data flows through a sequence of independent filters (processors) connected by pipes. Each filter transforms data and passes it to the next.
+
+**When to choose**  
+Data processing pipelines, ETL systems, stream processing, and batch workflows.
+
+**Pros / Cons**
+
+| Pros | Cons |
+|---|---|
+| Highly composable and reusable filters | Debugging data flow can be complex |
+| Easy to parallelize and distribute | Latency overhead from chaining |
+| Clear separation of concerns | Error handling and backpressure management needed |
+
+**Diagram**
+```text
+Input --> [Filter A] --> [Filter B] --> [Filter C] --> Output
+              |              |              |
+            Data           Data           Data
+```
+
+**Notes**  
+- Each filter is stateless and independent; enables parallel processing.  
+- Use with stream processing frameworks (Kafka, Spark, Flink) for scalability.  
+- Define clear data contracts between filters.
+
+---
+
+## Hexagonal (Clean Architecture)
+
+**Definition**  
+Isolates business logic in the center (core domain) with adapters at the boundaries to interact with external systems (UI, databases, APIs).
+
+**When to choose**  
+Systems where business logic must remain independent of external frameworks and technologies.
+
+**Pros / Cons**
+
+| Pros | Cons |
+|---|---|
+| Business logic is framework-agnostic and testable | Additional layer of indirection and complexity |
+| Easy to swap implementations (ports & adapters) | Overkill for simple CRUD applications |
+| Clear separation between core and external concerns | Requires discipline to maintain boundaries |
+
+**Diagram**
+```text
+        UI Layer (Adapters)
+           /    |    \
+         REST  gRPC  GraphQL
+           \    |    /
+         [Application Layer]
+           /    |    \
+       [Business Logic Core]
+           /    |    \
+         DB   Cache  Messages
+        (Adapters)
+```
+
+**Notes**  
+- Core domain has no knowledge of external systems (databases, web frameworks).  
+- Use dependency injection to wire adapters.  
+- Ports define contracts; adapters implement them.  
+- Excellent for domain-driven design (DDD) and microservices.
+
+---
+
+## Quick comparison (one‑line) — Updated
 
 | Style | Best for | Caution |
 |---|---:|---|
@@ -242,6 +310,8 @@ Service A <--> ESB <--> Service B <--> Service C
 | Microkernel | Extensible platforms | Govern plugin lifecycle |
 | Space‑Based | High throughput stateful apps | Complex state management |
 | SOA | Enterprise integration | Avoid ESB bottlenecks |
+| Pipe‑and‑Filter | Data processing pipelines | Debug end-to-end flow |
+| Hexagonal | Business logic isolation | Avoid over-engineering |
 
 ---
 
