@@ -10,9 +10,12 @@
   - [SOLID Principles](sdlc/SolidPrinciples.md)
   - [Test vs Behaviour - Driven Development](sdlc/TddVsBdd.md)
   - [Software Architecture](sa/Introduction.md)
+  - [Goals vs Objectives](sa/goalsvsobjective.md)
   - [Architecture Styles vs Patterns](sa/comparison.md)
   - [Architecture Styles](sa/styles.md)
   - [Functional vs Object-Oriented Programming](sa/funcVsOops.md)
+  - [Architecture Design Criteria](sa/designcriteria.md)
+  - [Framework-Based Approach](sa/frameworkbasedapproach.md)
 - Features
   - [Sidebar Collapse](features/sidebar-collapse.md)
   - [Search](features/search.md)
