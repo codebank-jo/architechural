@@ -1,11 +1,15 @@
-- Getting Started
-  - [Software Development Life Cycle (SDLC)](sdlc/SoftwareDevelopmentLifeCycle.md)
-  - [ValueStreamMapping](sdlc/ValueStreamMapping.md)
-  - [Test vs Behaviour - Driven  Development ](sdlc/TddVsBdd.md)
-  - [Software Development Models](sdlc/Softwaredevelopmentmodels.md)
+- Home
+  - [Home](README.md)
+  - [Cover Page](coverpage.md)
+- Learning Path
+  - [Introduction to Software Architecture](sa/Introduction.md)
   - [Agile Programming](sdlc/Agile.md)
+  - [Software Development Models](sdlc/Softwaredevelopmentmodels.md)
+  - [Software Development Life Cycle (SDLC)](sdlc/SoftwareDevelopmentLifeCycle.md)
+  - [Value Stream Mapping](sdlc/ValueStreamMapping.md)
   - [Software Design Principles](sdlc/SoftwareDesign.md)
   - [SOLID Principles](sdlc/SolidPrinciples.md)
+  - [Test vs Behaviour - Driven Development](sdlc/TddVsBdd.md)
 - Features
   - [Sidebar Collapse](features/sidebar-collapse.md)
   - [Search](features/search.md)

@@ -1,23 +1,20 @@
 # 🧪 Test-Driven Development (TDD) in C#
 
-## 🔍 What is TDD?
-TDD is a development technique where you:
+TDD is a development technique with a short feedback loop:
+1. Write a test for a new behavior.
+2. Run the test (it fails).
+3. Write the minimal code to make the test pass.
+4. Refactor.
+5. Repeat.
 
-1. Write a test for a new feature
-2. Run the test (it fails)
-3. Write the minimal code to pass the test
-4. Refactor the code
-5. Repeat
+## Why use TDD
+- Ensures correctness via executable tests.  
+- Encourages modular, testable design.  
+- Reduces regressions and supports refactoring.
 
-## ✅ Why use TDD?
-- Ensures code correctness
-- Drives clean architecture
-- Reduces regression bugs
-- Encourages modular design
+## Example (xUnit)
 
-## 🧑‍💻 TDD Example in C# (using xUnit)
-
-### Step 1: Write a failing test
+Step 1 — failing test:
 ```csharp
 // CalculatorTests.cs
 using Xunit;
@@ -34,7 +31,7 @@ public class CalculatorTests
 }
 ```
 
-### Step 2: Write minimal code to pass the test
+Step 2 — minimal implementation:
 ```csharp
 // Calculator.cs
 public class Calculator
@@ -46,19 +43,18 @@ public class Calculator
 }
 ```
 
-# 🤝 Behavior-Driven Development (BDD) in C#
+# Behavior-Driven Development (BDD) in C#
 
-## 🔍 What is BDD?
-BDD focuses on behavior and collaboration. It uses natural language to describe how the system should behave, often with tools like SpecFlow in C#.
+BDD focuses on observable behavior and collaboration, using human-readable specifications (e.g., Gherkin) that map to automated tests.
 
-## ✅ Why use BDD?
-- Improves communication between devs, testers, and business
-- Makes requirements executable
-- Bridges gap between technical and non-technical stakeholders
+## Why use BDD
+- Improves communication between developers, QA, and business stakeholders.  
+- Makes requirements executable and verifiable.  
+- Useful for acceptance-level tests and examples.
 
-## 🧑‍💻 BDD Example in C# (using SpecFlow)
+## Example (SpecFlow)
 
-### Feature File (Addition.feature)
+Feature file:
 ```gherkin
 Feature: Calculator
   Scenario: Add two numbers
@@ -67,7 +63,7 @@ Feature: Calculator
     Then the result should be 5
 ```
 
-### Step Definitions (CalculatorSteps.cs)
+Step definitions:
 ```csharp
 using TechTalk.SpecFlow;
 using Xunit;
@@ -99,22 +95,22 @@ public class CalculatorSteps
 }
 ```
 
-# ⚖️ TDD vs BDD in C#
+# TDD vs BDD
 
-| Feature      | TDD                               | BDD                               |
-|--------------|-----------------------------------|-----------------------------------|
-| Focus        | Code correctness                  | System behavior and business expectations |
-| Language     | C# test frameworks (xUnit, NUnit) | Gherkin + SpecFlow                |
-| Stakeholders | Developers                         | Developers, QA, Business Analysts |
-| Test Style   | Unit tests                        | Acceptance tests                  |
-| Tools        | xUnit, NUnit, MSTest             | SpecFlow, Gherkin                 |
+| Feature      | TDD                          | BDD                                 |
+|--------------|------------------------------|-------------------------------------|
+| Focus        | Implementation and unit logic| System behavior and acceptance      |
+| Language     | Test framework code (C#)     | Gherkin + step definitions          |
+| Stakeholders | Developers                   | Developers, QA, Business Analysts   |
+| Test style   | Unit tests                   | Acceptance / scenario tests         |
+| Tools        | xUnit, NUnit, MSTest         | SpecFlow (C#), Gherkin              |
 
-# 🧭 When to Use What
-**Use TDD when:**
-- Building internal logic, APIs, or libraries
-- You want fast feedback during development
-- You’re working in a dev-heavy team
+# When to use which
 
-**Use BDD when:**
-- Building user-facing features
-- Collaborating with QA and business teams
+Use TDD when:
+- Building libraries, algorithms, or internal logic.
+- You need fast, low‑level feedback.
+
+Use BDD when:
+- Defining user-facing features and acceptance criteria.
+- Collaborating with non-technical stakeholders to validate behavior.

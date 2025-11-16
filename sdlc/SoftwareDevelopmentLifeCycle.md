@@ -1,14 +1,14 @@
-# 🧭 Software Development Life Cycle (SDLC) — A Complete Guide
+# Software Development Life Cycle (SDLC) — A Complete Guide
 
 SDLC is a structured process that guides software development from idea to deployment and maintenance. It helps ensure quality, efficiency, and alignment with business goals.
 
-## 🔄 SDLC Lifecycle Overview
+## SDLC Lifecycle Overview
 ```sequence
 Requirement Gathering -> System Design -> Implementation -> Testing -> Deployment -> Maintenance
 ```
 Each phase builds on the previous, forming a continuous loop of improvement and delivery.
 
-## 📌 SDLC Phases Explained with Examples
+## SDLC Phases Explained with Examples
 
 ### 1. Requirement Gathering
 **Goal:** Understand customer needs.  
@@ -40,7 +40,7 @@ Each phase builds on the previous, forming a continuous loop of improvement and 
 **Activities:** Bug fixes, updates, performance tuning.  
 **Example:** Add wishlist feature and improve page load speed.
 
-## 🧩 SDLC Models
+## SDLC Models
 
 | Model   | Description                         | Best For                           |
 |---------|-------------------------------------|------------------------------------|
@@ -50,9 +50,9 @@ Each phase builds on the previous, forming a continuous loop of improvement and 
 | Spiral    | Risk-driven, iterative            | High-risk, complex systems         |
 | V-Model   | Testing-focused                   | Safety-critical software           |
 
-## 🚀 Agile & DevOps Lifecycle Integration
+## Agile & DevOps Lifecycle Integration
 
-### 🔄 Agile Lifecycle
+### Agile Lifecycle
 ```sequence
 Product Backlog -> Sprint Planning -> Development -> Testing -> Review -> Release
 ```
@@ -62,9 +62,8 @@ Example: A fintech app adds new features every 2 weeks based on user feedback.
 Plan -> Develop -> Build -> Test -> Release -> Deploy -> Operate -> Monitor
 ```
 Example: A SaaS platform uses Jenkins and Docker for automated deployment and monitoring.
-Example: A SaaS platform uses Jenkins and Docker for automated deployment and monitoring.
 
-## 👥 Roles and Responsibilities
+## Roles and Responsibilities
 
 | Role                 | Responsibilities                                      |
 |----------------------|-------------------------------------------------------|
@@ -75,7 +74,7 @@ Example: A SaaS platform uses Jenkins and Docker for automated deployment and mo
 | DevOps Engineers     | Automate deployment; monitor infrastructure           |
 | Product Owners       | Define features; prioritize backlog                   |
 
-## 🗑️ Waste in Software Development (Inspired by Toyota)
+## Waste in Software Development (Inspired by Toyota)
 
 - Partially Done Work — Unfinished features  
 - Extra Features — Not used by customers  
@@ -85,26 +84,26 @@ Example: A SaaS platform uses Jenkins and Docker for automated deployment and mo
 - Task Switching — Context loss  
 - Defects — Bugs and rework
 
-## 🧠 Example
+## Example
 A CRM had 50 features but only 20 were used. After a Lean review:
 - Removed unused features  
 - Focused on core value  
 - Reduced development time by 30%
 
-## 🏭 Case Study: Toyota’s Lean Software Transformation
+## Case Study: Toyota’s Lean Software Transformation
 
-### 🔍 Problem
+### Problem
 - Siloed teams  
 - Long release cycles  
 - High defect rates
 
-### 🛠️ Solution
+### Solution
 - Adopted Agile and DevOps  
 - Implemented CI/CD pipelines  
 - Used value stream mapping  
 - Eliminated non-value-adding activities
 
-### 📈 Outcome
+### Outcome
 - 40% faster delivery  
 - 60% fewer defects  
 - Improved team collaboration  

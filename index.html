@@ -14,11 +14,15 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
+      name: 'Architecture Notes',
+      repo: '', 
       loadSidebar: true,
-      subMaxLevel: 2, // Controls how many levels of nesting are shown
+      homepage: 'coverpage.md',        // use coverpage as the site landing page
+      subMaxLevel: 3,                 // increase menu depth to 3
+      auto2top: true,
       sidebarCollapse: {
-        collapse: true, // Collapse by default
-        hideOther: true // Only one section open at a time
+        collapse: true,
+        hideOther: true
       }
     }
   </script>
