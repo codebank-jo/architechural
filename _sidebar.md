@@ -4,14 +4,15 @@
 - Learning Path
   - [Software Development Life Cycle (SDLC)](sdlc/SoftwareDevelopmentLifeCycle.md)
   - [Value Stream Mapping](sdlc/ValueStreamMapping.md)
-  - [Software Architecture](sa/Introduction.md)  
   - [Software Development Models](sdlc/Softwaredevelopmentmodels.md)
   - [Agile Programming](sdlc/Agile.md)
   - [Software Design Principles](sdlc/SoftwareDesign.md)
   - [SOLID Principles](sdlc/SolidPrinciples.md)
   - [Test vs Behaviour - Driven Development](sdlc/TddVsBdd.md)
-  - [Arhcitecture Styles vs Patterns](sa/comparison.md)
-  - [Arhcitecture Styles](sa/styles.md)
+  - [Software Architecture](sa/Introduction.md)
+  - [Architecture Styles vs Patterns](sa/comparison.md)
+  - [Architecture Styles](sa/styles.md)
+  - [Functional vs Object-Oriented Programming](sa/funcVsOops.md)
 - Features
   - [Sidebar Collapse](features/sidebar-collapse.md)
   - [Search](features/search.md)

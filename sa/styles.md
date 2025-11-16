@@ -4,7 +4,23 @@ A cleaned, consistent reference for common architectural styles. Each style incl
 
 ---
 
-## Monolithic
+## Categorization of Architectural Styles
+
+| Category | Styles | Focus |
+|---|---|---|
+| **Domain** | Monolithic, Microservices, Microkernel | How the system is divided and organized around business domains |
+| **Communication** | Event-Driven, SOA, Pipe-and-Filter | How components exchange information and coordinate |
+| **Deployment** | Layered (N-Tier), Client-Server, Space-Based | How the system is physically distributed and deployed |
+| **Structure** | Hexagonal (Clean), Layered | How components are organized internally |
+| **Data-Centric** | Pipe-and-Filter, Event-Driven, Space-Based | How data flows and is processed through the system |
+
+---
+
+## Domain-Organized Styles
+
+Focused on how the system is divided and organized around business domains and responsibilities.
+
+### Monolithic
 
 **Definition**  
 Single deployable unit containing presentation, business logic, and data access.
@@ -33,64 +49,7 @@ Small apps, early-stage products, teams that value simplicity and fast iteration
 
 ---
 
-## Layered (N‑Tier)
-
-**Definition**  
-Organized into layers (Presentation → Business → Data). Each layer has clear responsibilities.
-
-**When to choose**  
-Enterprise apps needing separation of concerns and clear team responsibilities.
-
-**Pros / Cons**
-
-| Pros | Cons |
-|---|---|
-| Clear structure and separation of concerns | Can become rigid and add latency between layers |
-| Easier to reason about responsibilities | Over‑layering leads to unnecessary complexity |
-
-**Diagram**
-```text
-Presentation
-    ↓
-Business Logic
-    ↓
-Data Access
-    ↓
-Database
-```
-
-**Notes**  
-- Useful as an initial architecture inside services.  
-- Combine with caching and async patterns to reduce layer coupling.
-
----
-
-## Client‑Server
-
-**Definition**  
-Clients request services from centralized servers (classic request/response).
-
-**When to choose**  
-Simple distributed systems or systems with clear client/server roles.
-
-**Pros / Cons**
-
-| Pros | Cons |
-|---|---|
-| Centralized control, easy to secure | Server can become bottleneck |
-| Simple communication model | Scaling servers requires careful design |
-
-**Diagram**
-```text
-Client --> Load Balancer --> Server --> Database
-```
-
-**Notes**  
-- Add load balancers, caching, and horizontal scaling to improve capacity.
-
----
-
-## Microservices
+### Microservices
 
 **Definition**  
 Application decomposed into small, independently deployable services, each owning its data and API.
@@ -119,37 +78,10 @@ Large, complex domains where independent scaling, deployment, and ownership matt
 
 ---
 
-## Event‑Driven
+### Microkernel (Plug-in)
 
 **Definition**  
-Components communicate asynchronously by emitting and consuming events via an event bus.
-
-**When to choose**  
-Systems needing loose coupling, high scalability, and asynchronous workflows.
-
-**Pros / Cons**
-
-| Pros | Cons |
-|---|---|
-| Highly decoupled and scalable | Harder to reason about end-to-end flow and debugging |
-| Natural fit for integration and CQRS | Eventual consistency complexities |
-
-**Diagram**
-```text
-Producer --> Event Bus --> Consumer A
-                             --> Consumer B
-```
-
-**Notes**  
-- Pay attention to idempotency, ordering, and replay semantics.  
-- Use tracing and event schemas (Avro/JSON Schema) to manage evolution.
-
----
-
-## Microkernel (Plug‑in)
-
-**Definition**  
-Core system with extension points (plug‑ins) that add functionality.
+Core system with extension points (plug-ins) that add functionality.
 
 **When to choose**  
 Platforms or products that need extensibility (IDEs, payment platforms).
@@ -176,36 +108,38 @@ Platforms or products that need extensibility (IDEs, payment platforms).
 
 ---
 
-## Space‑Based
+## Communication-Oriented Styles
+
+Focused on how components exchange information and coordinate with each other.
+
+### Event-Driven
 
 **Definition**  
-Uses distributed in-memory data grids and partitioning to avoid central bottlenecks.
+Components communicate asynchronously by emitting and consuming events via an event bus.
 
 **When to choose**  
-High-throughput, low-latency systems needing horizontal scale with in-memory state.
+Systems needing loose coupling, high scalability, and asynchronous workflows.
 
 **Pros / Cons**
 
 | Pros | Cons |
 |---|---|
-| Excellent horizontal scalability and concurrency | Complex consistency and state management |
-| Avoids single database bottleneck | Operational and debugging complexity |
+| Highly decoupled and scalable | Harder to reason about end-to-end flow and debugging |
+| Natural fit for integration and CQRS | Eventual consistency complexities |
 
 **Diagram**
 ```text
-[Node A] <--> [Distributed Data Grid] <--> [Node B]
-                      ^
-                      |
-                   [Node C]
+Producer --> Event Bus --> Consumer A
+                             --> Consumer B
 ```
 
 **Notes**  
-- Good for session stores, in-memory processing, and real-time systems.  
-- Ensure robust partitioning and replication strategies.
+- Pay attention to idempotency, ordering, and replay semantics.  
+- Use tracing and event schemas (Avro/JSON Schema) to manage evolution.
 
 ---
 
-## SOA (Service‑Oriented Architecture)
+### SOA (Service-Oriented Architecture)
 
 **Definition**  
 Services expose contracts and are often orchestrated via enterprise middleware (ESB).
@@ -230,37 +164,117 @@ Service A <--> ESB <--> Service B <--> Service C
 
 ---
 
-## Pipe‑and‑Filter
+## Deployment-Oriented Styles
+
+Focused on how the system is physically distributed and deployed across machines/nodes.
+
+### Layered (N-Tier)
 
 **Definition**  
-Data flows through a sequence of independent filters (processors) connected by pipes. Each filter transforms data and passes it to the next.
+Organized into layers (Presentation → Business → Data). Each layer has clear responsibilities.
 
 **When to choose**  
-Data processing pipelines, ETL systems, stream processing, and batch workflows.
+Enterprise apps needing separation of concerns and clear team responsibilities.
 
 **Pros / Cons**
 
 | Pros | Cons |
 |---|---|
-| Highly composable and reusable filters | Debugging data flow can be complex |
-| Easy to parallelize and distribute | Latency overhead from chaining |
-| Clear separation of concerns | Error handling and backpressure management needed |
+| Clear structure and separation of concerns | Can become rigid and add latency between layers |
+| Easier to reason about responsibilities | Over-layering leads to unnecessary complexity |
 
 **Diagram**
 ```text
-Input --> [Filter A] --> [Filter B] --> [Filter C] --> Output
-              |              |              |
-            Data           Data           Data
+Presentation
+    ↓
+Business Logic
+    ↓
+Data Access
+    ↓
+Database
 ```
 
 **Notes**  
-- Each filter is stateless and independent; enables parallel processing.  
-- Use with stream processing frameworks (Kafka, Spark, Flink) for scalability.  
-- Define clear data contracts between filters.
+- Useful as an initial architecture inside services.  
+- Combine with caching and async patterns to reduce layer coupling.
 
 ---
 
-## Hexagonal (Clean Architecture)
+#### Closed Layered Architecture
+
+**Definition**  
+A request must pass through each layer sequentially; a layer can only call the layer directly below it.
+
+**When to choose**  
+Systems requiring strict separation, clear boundaries, and controlled access patterns.
+
+**Pros / Cons**
+
+| Pros | Cons |
+|---|---|
+| Strict isolation between layers | Performance overhead (request passes through all layers) |
+| Clear contracts and boundaries | Less flexibility; harder to optimize |
+| Easier to enforce standards | Can lead to unnecessary intermediaries |
+
+**Diagram**
+```text
+Presentation Layer
+    ↓ (must call)
+Business Logic Layer
+    ↓ (must call)
+Data Access Layer
+    ↓ (must call)
+Database
+```
+
+**Notes**  
+- Each layer only knows about the layer below it.  
+- Use when security, compliance, or strict governance is critical.  
+- Common in legacy enterprise systems.
+
+---
+
+#### Open Layered Architecture
+
+**Definition**  
+Layers can bypass intermediate layers and call any layer below them directly (e.g., Presentation can call Data Access).
+
+**When to choose**  
+Systems where performance optimization and flexibility are priorities over strict layering.
+
+**Pros / Cons**
+
+| Pros | Cons |
+|---|---|
+| Better performance (skip unnecessary layers) | Risk of breaking encapsulation and creating coupling |
+| More flexibility for optimization | Harder to maintain layer boundaries |
+| Natural for caching and cross-layer concerns | Can become chaotic without discipline |
+
+**Diagram**
+```text
+Presentation Layer
+    ↓ (can call any layer below)
+    ├─→ Business Logic Layer
+    │       ↓ (can call any layer below)
+    │       └─→ Data Access Layer
+    │               ↓
+    │           Database
+    └────────────────────→ (bypass for caching, etc.)
+```
+
+**Notes**  
+- Use for performance-critical paths.  
+- Requires strong architectural governance to prevent chaos.  
+- Common in modern web applications with shared caching layers.  
+- Consider using adapters or facades to manage cross-layer calls.
+
+---
+
+## Structure-Oriented Styles
+
+Focused on how components are organized and structured internally.
+
+### Hexagonal (Clean Architecture)
 
 **Definition**  
 Isolates business logic in the center (core domain) with adapters at the boundaries to interact with external systems (UI, databases, APIs).
@@ -298,24 +312,58 @@ Systems where business logic must remain independent of external frameworks and 
 
 ---
 
-## Quick comparison (one‑line) — Updated
+## Data-Centric Styles
 
-| Style | Best for | Caution |
-|---|---:|---|
-| Monolith | Fast iteration | Watch coupling |
-| Layered | Clear separation | Avoid excess layers |
-| Client‑Server | Simple distributed apps | Scale server properly |
-| Microservices | Large, autonomous teams | Invest in ops & contracts |
-| Event‑Driven | Asynchronous, decoupled flows | Manage consistency & tracing |
-| Microkernel | Extensible platforms | Govern plugin lifecycle |
-| Space‑Based | High throughput stateful apps | Complex state management |
-| SOA | Enterprise integration | Avoid ESB bottlenecks |
-| Pipe‑and‑Filter | Data processing pipelines | Debug end-to-end flow |
-| Hexagonal | Business logic isolation | Avoid over-engineering |
+Focused on how data flows and is processed through the system.
+
+### Pipe-and-Filter
+
+**Definition**  
+Data flows through a sequence of independent filters (processors) connected by pipes. Each filter transforms data and passes it to the next.
+
+**When to choose**  
+Data processing pipelines, ETL systems, stream processing, and batch workflows.
+
+**Pros / Cons**
+
+| Pros | Cons |
+|---|---|
+| Highly composable and reusable filters | Debugging data flow can be complex |
+| Easy to parallelize and distribute | Latency overhead from chaining |
+| Clear separation of concerns | Error handling and backpressure management needed |
+
+**Diagram**
+```text
+Input --> [Filter A] --> [Filter B] --> [Filter C] --> Output
+              |              |              |
+            Data           Data           Data
+```
+
+**Notes**  
+- Each filter is stateless and independent; enables parallel processing.  
+- Use with stream processing frameworks (Kafka, Spark, Flink) for scalability.  
+- Define clear data contracts between filters.
 
 ---
 
-## Practical tips
+## Quick Comparison
+
+| Style | Category | Best for | Caution |
+|---|---|---|---|
+| Monolith | Domain | Fast iteration | Watch coupling |
+| Microservices | Domain | Large, autonomous teams | Invest in ops & contracts |
+| Microkernel | Domain | Extensible platforms | Govern plugin lifecycle |
+| Event-Driven | Communication | Asynchronous, decoupled flows | Manage consistency & tracing |
+| SOA | Communication | Enterprise integration | Avoid ESB bottlenecks |
+| Layered | Deployment | Clear separation | Avoid excess layers |
+| Client-Server | Deployment | Simple distributed apps | Scale server properly |
+| Space-Based | Deployment | High throughput stateful apps | Complex state management |
+| Hexagonal | Structure | Business logic isolation | Avoid over-engineering |
+| Pipe-and-Filter | Data-Centric | Data processing pipelines | Debug end-to-end flow |
+
+---
+
+## Practical Tips
 
 - Document assumptions and constraints before choosing a style.  
 - Consider hybrid approaches (e.g., monolithic modular core + microservices for unstable domains).  
