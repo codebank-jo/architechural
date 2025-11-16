@@ -1,18 +1,18 @@
 # Introduction to Software Architecture
 
-> Overview
->
-> Software architecture is the high-level structure of a system: its components, responsibilities, and interactions. It guides design decisions to meet business goals such as scalability, reliability, and maintainability.
+> Overview  
+> Software architecture is the high-level structure of a system: its components, responsibilities, and interactions.  
+> It guides design decisions to meet business goals such as scalability, reliability, and maintainability.
 
 ## Table of contents
-- [Definition & Purpose](#definition--purpose)
-- [Key Aspects](#key-aspects)
-- [Core Components](#core-components)
-- [Infrastructure & Deployment](#infrastructure--deployment)
-- [Characteristics of Good Architecture](#characteristics-of-good-architecture)
-    - [Operational](#operational)
-    - [Structural](#structural)
-    - [Cross‑Cutting](#cross‑cutting)
+- [Definition & Purpose](#definition--purpose)  
+- [Key Aspects](#key-aspects)  
+- [Core Components](#core-components)  
+- [Infrastructure & Deployment](#infrastructure--deployment)  
+- [Characteristics of Good Architecture](#characteristics-of-good-architecture)  
+  - [Operational](#operational)  
+  - [Structural](#structural)  
+  - [Cross‑Cutting](#cross‑cutting)  
 - [Summary](#summary)
 
 ---
@@ -46,17 +46,10 @@
 
 ## Core Components
 
-- Components / Modules / Services  
-    - Encapsulate functionality with defined interfaces.
-
-- Connectors  
-    - Communication paths between components (HTTP, gRPC, message brokers).
-
-- Data  
-    - Storage systems and data flow (databases, caches, event stores).
-
-- Interfaces  
-    - Entry points for users or external systems (REST endpoints, GUIs).
+- Components / Modules / Services — encapsulate functionality with defined interfaces.  
+- Connectors — communication paths between components (HTTP, gRPC, message brokers).  
+- Data — storage systems and data flow (databases, caches, event stores).  
+- Interfaces — entry points for users or external systems (REST endpoints, GUIs).
 
 Example: A mobile UI calls backend services via REST:
 
@@ -70,7 +63,7 @@ Authorization: Bearer <token>
 
 ## Infrastructure & Deployment
 
-- Deployment targets: servers, cloud platforms, containers, orchestration (e.g., Kubernetes).
+- Deployment targets: servers, cloud platforms, containers, orchestration (e.g., Kubernetes).  
 - Runtime concerns: scaling, networking, secrets management, observability.
 
 Example: Microservices deployed in containers on Kubernetes with an ingress controller, autoscaling, and centralized logging.
@@ -79,31 +72,75 @@ Example: Microservices deployed in containers on Kubernetes with an ingress cont
 
 ## Characteristics of Good Architecture
 
-### Operational
-Describes runtime behavior and service qualities:
-- Performance — response times and throughput (e.g., sub-second responses for interactive apps).
-- Scalability — handle growth in users/data (e.g., horizontal scaling).
-- Availability — uptime and fault tolerance (e.g., redundant services).
-- Security — confidentiality, integrity, access control (e.g., encryption, RBAC).
-- Reliability — consistent correct operation (e.g., retries, idempotency).
+Operational — runtime qualities that determine how the system runs in production (performance, scalability, availability, fault tolerance, observability).  
+Example keywords: Run | Serve | Recover — (latency, autoscaling, circuit breakers, monitoring).
 
-### Structural
-Describes organization and maintainability:
-- Modularity — independent components (e.g., microservices).
-- Maintainability — ease of bug fixes and feature delivery (e.g., layered architecture).
-- Reusability — shared modules across systems (e.g., auth library).
-- Portability — run on multiple platforms/environments.
-- Testability — supports unit, integration, and end-to-end testing.
+Structural — organization and maintainability of the code and components (modularity, boundaries, testability, data strategy).  
+Example keywords: Build | Organize | Isolate — (microservices, bounded contexts, contract tests).
 
-### Cross‑Cutting
-Applies across the system:
-- Logging & Monitoring — centralized telemetry and alerts.
-- Configuration Management — environment-specific configurations.
-- Error Handling — consistent strategies for failures.
-- Security Policies — authentication, authorization, compliance.
-- Documentation & Standards — coding guidelines and architecture docs.
+Cross‑Cutting — system-wide concerns that apply across components (logging, config & secrets, CI/CD, security, policy).  
+Example keywords: Everywhere | Policies | Glue — (centralized logging, Vault, automated pipelines).
 
 ---
+
+### Operational
+
+| Characteristic | Description | Example | Metrics / Notes |
+|---|---|---|---|
+| Performance | How fast requests are handled | P95 latency < 100ms for interactive endpoints | Latency, throughput, P95/P99 |
+| Scalability | Ability to handle growth (users / data) | Horizontal autoscaling based on queue depth | Max QPS, scaling latency |
+| Availability | Uptime and failover behavior | Multi-AZ deployment with health checks | Uptime %, MTTR |
+| Fault tolerance | Continue operating despite component failures | Circuit breakers, bulkheads, graceful degradation | Fallback success rate, error rate |
+| Reliability | Correct operation under expected conditions | Idempotent APIs and safe retries | Success rate, defect rate |
+| Observability | Metrics, logs, traces to understand state | Prometheus + Grafana + distributed tracing | Coverage, alert accuracy |
+| Operability | Ease of operating and recovering systems | Runbooks, readiness/liveness probes | MTTR, runbook coverage |
+| Resilience practices | Techniques to verify robustness | Chaos testing, canary deploys, backpressure | Failure injection results, rollback rate |
+| SLO / SLA / Error budget | Defined service targets and budgets | 99.9% availability, 100ms P95 | Error budget burn rate |
+| Recovery objectives | Disaster recovery targets | RTO = 15m, RPO = 1h for critical services | RTO / RPO measured via drills |
+
+---
+
+### Structural
+
+| Characteristic | Description | Example | Metrics / Notes |
+|---|---|---|---|
+| Modularity | Independent, well-scoped components | Microservices or libraries per domain | Number of cross-module dependencies |
+| Boundaries / Bounded contexts | Clear domain separation (DDD) | Order vs. Inventory bounded contexts | Cross-context calls, semantic leaks |
+| Maintainability | Ease of change and debugging | Layered or hexagonal architecture | Time to implement change, code churn |
+| Reusability | Shared components reduce duplication | Auth library used by multiple services | Reuse rate, duplicated implementations |
+| Portability | Run across environments with minimal changes | Containerized workloads | Environment parity, deployment failures |
+| Testability | Supports unit/integration/contract testing | CI runs unit + contract tests | Test coverage, CI pass rate |
+| API & contract management | Versioning and compatibility practices | Consumer-driven contract tests | Breaking change count |
+| Data strategy | Consistency model and migration approach | Eventual consistency for caches; migration plans | Replication lag, migration errors |
+| Coupling & cohesion | Low interdependence, high internal focus | Well-factored modules, clear interfaces | Coupling metrics, cohesion indicators |
+
+---
+
+### Cross‑Cutting
+
+| Characteristic | Description | Example | Metrics / Notes |
+|---|---|---|---|
+| Logging & Monitoring | Centralized telemetry and alerting | ELK/Tempo + alert rules | Alert rate, false positive rate |
+| Configuration & Secrets | Secure, environment-aware configuration | Vault + env-specific config | Secret rotation interval, breach incidents |
+| Error handling & retries | Uniform failure policies and idempotency | Exponential backoff, idempotency keys | Retry success rate, duplicate side-effects |
+| Security policies | AuthN, AuthZ, auditing and compliance | RBAC, encryption at rest/in transit | Vulnerability count, audit coverage |
+| CI/CD & release practices | Automated build/test/deploy pipelines | Blue/green or canary deployments | Deployment frequency, lead time |
+| Governance & standards | ADRs, coding standards, API guidelines | ADRs stored in repo; linting rules | ADR backlog, linting violations |
+| Rate limiting & quotas | Protect services from overload | Per-tenant throttles and quotas | Rejection rate, fairness metrics |
+| Policy & infra as code | Reproducible infra and policy enforcement | Terraform + policy checks | Drift frequency, policy violations |
+| Observability pipelines | Log/metric retention, sampling, cost control | Centralized pipeline with sampling | Ingestion cost, retention coverage |
+
+---
+
+Quick mnemonic (one-liner): Run — Build — Share  
+- Run = Operational (how it behaves at runtime)  
+- Build = Structural (how it is constructed)  
+- Share = Cross‑Cutting (what applies everywhere)
+
+### Easy keyword map to remember
+- Operational → Run (latency, availability, SLOs)  
+- Structural → Build (modules, boundaries, tests)  
+- Cross‑Cutting → Share (logging, config, CI/CD)
 
 ## Summary
 
@@ -112,11 +149,6 @@ Applies across the system:
 | Operational | Performance, Scalability, Availability, Security, Reliability | Streaming service handling peaks |
 | Structural | Modularity, Maintainability, Reusability, Portability, Testability | Microservices for e-commerce |
 | Cross‑Cutting | Logging, Monitoring, Config Management, Error Handling, Security Policies | Centralized logging & alerting system |
-
-In short:
-- Operational → how the system runs.
-- Structural → how the system is built.
-- Cross‑cutting → concerns that affect the whole system.
 
 ---
 
